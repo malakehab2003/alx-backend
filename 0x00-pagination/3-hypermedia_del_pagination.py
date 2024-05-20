@@ -43,9 +43,9 @@ class Server:
         """ return dict with data """
         indexed_data = self.indexed_dataset()
         assert (isinstance(index, int)
-        and index >= 0
-        and index is not None
-        and index <= max(indexed_data.keys()))
+                and index >= 0
+                and index is not None
+                and index <= max(indexed_data.keys()))
         page_data = []
         i = 0
         for key, value in indexed_data.items():
