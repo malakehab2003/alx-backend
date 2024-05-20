@@ -56,7 +56,7 @@ class Server:
                 i += 1
         my_dict = {}
         my_dict['index'] = index
-        my_dict['next_index'] = index + page_size + 1
+        my_dict['next_index'] = index + page_size
         my_dict['page_size'] = len(page_data)
         my_dict['data'] = page_data
         return my_dict
