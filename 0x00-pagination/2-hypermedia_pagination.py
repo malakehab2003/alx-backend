@@ -46,8 +46,8 @@ class Server:
         my_dict['page_size'] = page_size
         my_dict['page'] = page
         my_dict['data'] = self.get_page(page, page_size)
-        page = self.get_page(page + 1, page_size)
-        my_dict['next_page'] = page + 1 if len(page) > 0 else None
+        page_data = self.get_page(page + 1, page_size)
+        my_dict['next_page'] = page + 1 if len(page_data) > 0 else None
         my_dict['prev_page'] = page - 1 if page > 1 else None
         data = self.dataset()
         my_dict['total_pages'] = (len(data) + page_size - 1) // page_size
