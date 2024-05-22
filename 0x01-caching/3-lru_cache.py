@@ -20,9 +20,9 @@ class LRUCache(BaseCaching):
                 print(f'DISCARD: {self.my_list[0]}')
                 del self.cache_data[self.my_list[0]]
                 self.my_list.remove(self.my_list[0])
-                self.my_list = list(set(self.my_list))
             self.cache_data[key] = item
-            self.my_list.append(key)
+            if key not in self.my_list:
+                self.my_list.append(key)
 
     def get(self, key):
         """ get specific data linked to givin key """
