@@ -58,7 +58,7 @@ def before_request():
 @app.route('/', strict_slashes=False)
 def index():
     """ create the / route """
-    return render_template('7-index.html')
+    return render_template('6-index.html')
 
 
 if __name__ == '__main__':
