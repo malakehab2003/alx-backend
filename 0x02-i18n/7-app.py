@@ -2,6 +2,8 @@
 """ Create a single / route """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+import pytz
+from pytz import exceptions
 
 
 class Config:
@@ -39,6 +41,37 @@ def get_locale():
     if header and header in app.config['LANGUAGES']:
         return header
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@babel.timezoneselector
+def get_timezone():
+    """ determine the best time zone """
+    timezone = request.args.get('timezone')
+    if timezone:
+        try:
+            pytz.timezone(timezone)
+            return timezone
+        except exceptions.UnknownTimeZoneError:
+            pass
+
+    user = g.get('user')
+    if user:
+        timezone = user.get('timezone')
+        if timezone:
+            try:
+                pytz.timezone(timezone)
+                return timezone
+            except exceptions.UnknownTimeZoneError:
+                pass
+    header_time = request.headers.get('timezone')
+    if header_time:
+        try:
+            pytz.timezone(header_time)
+            return header_time
+        except exceptions.UnknownTimeZoneError:
+            pass
+
+    return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 def get_user():
